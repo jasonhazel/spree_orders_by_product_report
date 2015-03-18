@@ -1,0 +1,27 @@
+- content_for :page_title do 
+  = 'Orders by Product Report'
+
+- content_for :page_actions do
+  li = link_to_with_icon 'arrow-left', 'Back To Reports List', spree.admin_reports_url, class: 'button'
+
+- content_for :table_filter_title do
+  = 'Search Criteria'
+
+- content_for :table_filter do 
+  = render :partial => 'report_form', :locals => {}
+
+- if @orders.count > 0
+  table.admin-report data-hook="orders_by_product"
+    thead
+      tr
+        th Order Number
+        th Customer
+        th Date
+    tbody
+      - @orders.each do |order|
+        tr
+          td = link_to order.number, edit_admin_order_path(order), target: '_blank'
+          td = link_to order.user.email, edit_admin_user_path(order.user), target: '_blank'
+          td = order.completed_at.in_time_zone("Eastern Time (US & Canada)").strftime('%-m/%-d/%Y %l:%M %p')
+- else
+  .align-center No Orders Found

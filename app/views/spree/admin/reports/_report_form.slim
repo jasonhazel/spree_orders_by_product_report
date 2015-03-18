@@ -1,0 +1,24 @@
+= search_form_for @search, :url => spree.orders_by_product_admin_reports_path  do |s|
+  .date-range-filter.field.align-center
+    = label_tag nil, 'Product: ', class: 'inline'
+    | &nbsp;
+    = s.select :products_id_eq, Spree::Product.all.collect{ |p| [p.name, p.id] }, {}, class: 'select2'
+    | &nbsp;
+
+
+    = label_tag nil, Spree.t(:start), class: 'inline'
+    | &nbsp;
+    = s.text_field :completed_at_gt, class: 'datepicker datepicker-from', value: datepicker_field_value(params[:q][:completed_at_gt])
+    
+    span.range-divider
+      i.fa.fa-arrow-right        
+
+    = s.text_field :completed_at_lt, class: 'datepicker datepicker-to', value: datepicker_field_value(params[:q][:completed_at_lt])
+    | &nbsp;
+    = label_tag nil, Spree.t(:end), class: 'inline'
+
+
+    .actions.filter-actions
+      = button Spree.t(:search), 'search'
+
+
