@@ -7,7 +7,8 @@ Spree::Admin::ReportsController.class_eval do
 
   def orders_by_product
     @search = Spree::Order.complete.ransack(params[:q])
-
+    @products = Spree::Product.all.collect{ |p| [p.name, p.id] }
+    @products.unshift ['All Products', '']
 
 
     @orders = @search.result.includes(:products)

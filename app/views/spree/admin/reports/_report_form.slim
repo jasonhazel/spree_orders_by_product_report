@@ -2,7 +2,7 @@
   .date-range-filter.field.align-center
     = label_tag nil, 'Product: ', class: 'inline'
     | &nbsp;
-    = s.select :products_id_eq, Spree::Product.all.collect{ |p| [p.name, p.id] }, {}, class: 'select2'
+    = s.select :products_id_eq, @products, {}, class: 'select2'
     | &nbsp;
 
 
